@@ -101,6 +101,9 @@ class GFPGANer():
     @torch.no_grad()
     def enhance(self, img, has_aligned=False, only_center_face=False, paste_back=True, weight=0.5):
         self.face_helper.clean_all()
+        
+        if img is None:
+            return self.face_helper.cropped_faces, self.face_helper.restored_faces, None
 
         if has_aligned:  # the inputs are already aligned
             img = cv2.resize(img, (512, 512))
